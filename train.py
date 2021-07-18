@@ -28,9 +28,9 @@ def main():
     if args.cuda == 'auto':
         import GPUtil as GPU
         GPUs = GPU.getGPUs()
-        idx = [GPUs[j].memoryUsed for j in range(len(GPUs))]
+        idx = [GPUs[j].memoryFree for j in range(len(GPUs))]
         print(idx)
-        assert min(idx) < 11.0, 'All {} GPUs are in use'.format(len(GPUs))
+        assert min(idx) > 11.0, 'All {} GPUs are in use'.format(len(GPUs))
         idx = idx.index(min(idx))
         print('Assigning CUDA_VISIBLE_DEVICES={}'.format(idx))
         os.environ["CUDA_VISIBLE_DEVICES"] = str(idx)
