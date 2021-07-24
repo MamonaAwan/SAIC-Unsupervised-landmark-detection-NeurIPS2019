@@ -61,12 +61,12 @@ def preparedb(self, db):
  
     if db == 'CelebA':
         def init(self):
-            txt_file = open('list_landmarks_align_celeba.txt','r')
+            txt_file = open(self.path + 'list_landmarks_align_celeba.txt','r')
             lines = txt_file.readlines()[2::]
             names = [l.split()[0] for l in lines]
             coords = [l.split()[1::] for l in lines]
             data = dict(zip(names,coords))
-            mafl = [l.replace('\n','') for l in open('MAFL_test.txt','r').readlines()] # remove MAFL test from training
+            mafl = [l.replace('\n','') for l in open(self.path + 'cdtesting.txt','r').readlines()] # remove MAFL test from training
             files = list(set(names) - set(mafl))
             keys = ['files', 'data']
             for k in keys:
@@ -107,7 +107,7 @@ def preparedb(self, db):
     if 'MAFL' in db:
         def init(self):
             partition = db.split('-')[1]
-            txt_file = open('list_landmarks_align_celeba.txt', 'r')
+            txt_file = open(self.path +'list_landmarks_align_celeba.txt', 'r')
             lines = txt_file.readlines()[2::]
             names = [l.split()[0] for l in lines]
             coords = [l.split()[1::] for l in lines]

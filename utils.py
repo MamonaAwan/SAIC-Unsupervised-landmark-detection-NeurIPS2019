@@ -147,13 +147,14 @@ def crop( image, landmarks , size, tight=8):
 
 def affine_trans(image,landmarks,angle=None,size=None):
     if angle is None:
-        angle = 30*torch.randn(1)
+        ang = 30*torch.randn(1)
+        angle = ang.item()
        
     
     (h, w) = image.shape[:2]
     (cX, cY) = (w // 2, h // 2)
  
-    M = cv2.getRotationMatrix2D((cX, cY), -angle, 1.0)
+    M = cv2.getRotationMatrix2D((cX, cY), -(np.double(angle)), 1.0)
     cos = np.abs(M[0, 0])
     sin = np.abs(M[0, 1])
  
